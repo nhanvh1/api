@@ -30,4 +30,5 @@ async function bootstrap() {
 
     await app.listen(PORT);
 }
+
 bootstrap().then(() => logger.log(`${NAME.toUpperCase()} started at ${PORT}`));

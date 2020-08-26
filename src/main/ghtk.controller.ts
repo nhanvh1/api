@@ -10,8 +10,6 @@ export class GhtkController {
      * Details of collection
      *
      * @return ContactListResponseInterface
-     * @param param
-     * @param queries
      */
     @Get('get')
     @ApiParam({ name: 'collectionId', required: true })

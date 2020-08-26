@@ -39,7 +39,6 @@ export class ConfigService {
         if (result === undefined) {
             throw new RuntimeException(`Key ${key} not found.`);
         }
-
         return result;
     }
 
