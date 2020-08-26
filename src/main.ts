@@ -21,12 +21,12 @@ async function bootstrap() {
 
     // Swagger
     const options = new DocumentBuilder()
-        .setTitle(PACKAGE)
-        .setDescription('The document about Sticker API')
-        .addTag('Sticker')
+        .setTitle(NAME.toUpperCase())
+        .setDescription('The document about Viethome API')
+        .addTag('GHTK')
         .build();
     const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup(`${GLOBAL_PREFIX}/_docs`, app, document);
+    SwaggerModule.setup(`${GLOBAL_PREFIX}/docs`, app, document);
 
     await app.listen(PORT);
 }
