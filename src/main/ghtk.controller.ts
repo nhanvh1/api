@@ -7,7 +7,7 @@ export class GhtkController {
     constructor(private readonly service: GhtkService) {}
 
     /**
-     * Details of collection
+     * Get Fee
      *
      * @return ContactListResponseInterface
      */

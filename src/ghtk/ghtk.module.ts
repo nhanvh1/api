@@ -27,4 +27,5 @@ import { ConfigModule } from "../config/config.module";
     controllers: [GhtkController],
     exports: [GhtkService],
 })
+
 export class GhtkModule {}

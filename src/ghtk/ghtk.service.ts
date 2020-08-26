@@ -19,4 +19,5 @@ export class GhtkService {
         console.log('res ', res.data);
         return res.data;
     }
+
 }
