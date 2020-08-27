@@ -1,3 +1,1 @@
-export enum GhtkEnums {
-    
-}
+export enum GhtkEnums {}

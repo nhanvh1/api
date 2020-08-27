@@ -1,9 +1,9 @@
 import { HttpModule, Module } from '@nestjs/common';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { GhtkService } from "./ghtk.service";
-import { GhtkController } from "../main/ghtk.controller";
-import { ConfigService } from "../config/config.service";
-import { ConfigModule } from "../config/config.module";
+import { GhtkService } from './ghtk.service';
+import { GhtkController } from '../main/ghtk.controller';
+import { ConfigService } from '../config/config.service';
+import { ConfigModule } from '../config/config.module';
 
 @Module({
     imports: [
@@ -27,5 +27,4 @@ import { ConfigModule } from "../config/config.module";
     controllers: [GhtkController],
     exports: [GhtkService],
 })
-
 export class GhtkModule {}

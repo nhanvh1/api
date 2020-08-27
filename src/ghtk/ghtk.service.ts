@@ -1,5 +1,5 @@
-import {HttpService, Injectable} from "@nestjs/common";
-import {ConfigService} from "../config/config.service";
+import { HttpService, Injectable } from '@nestjs/common';
+import { ConfigService } from '../config/config.service';
 const configs = new ConfigService();
 
 @Injectable()
@@ -13,7 +13,7 @@ export class GhtkService {
         this.fee = configs.get('providers.ghtk.api.get-fee');
         this.headersRequest = {
             'Content-Type': 'application/json',
-            'Token': `${token}`,
+            Token: `${token}`,
         };
     }
 
@@ -21,13 +21,15 @@ export class GhtkService {
         return this.http.get(encodeURI(endpoint), { headers: this.headersRequest }).toPromise();
     }
 
-    async calculateFee(address: string,
-                       province: string,
-                       district: string,
-                       pick_province: string,
-                       pick_district: string,
-                       weight: number,
-                       value: number) {
+    async calculateFee(
+        address: string,
+        province: string,
+        district: string,
+        pick_province: string,
+        pick_district: string,
+        weight: number,
+        value: number,
+    ) {
         let endpoint = this.url;
         endpoint += this.fee;
         endpoint += `?address=${address}`;
@@ -41,5 +43,4 @@ export class GhtkService {
         const res = await this.getMethod(endpoint);
         return res.data;
     }
-
 }
