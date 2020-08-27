@@ -3,4 +3,5 @@ export enum API_ROUTE {
 
     PROVIDER_CREATE = 'create',
     PROVIDER_GET = ':key',
+    PROVIDER_UPDATE = ':key',
 }

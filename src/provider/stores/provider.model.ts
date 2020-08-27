@@ -10,7 +10,7 @@ export interface ProviderModel {
 }
 
 export interface ProviderDocumentInterface extends ProviderModel, Document {
-
+    updateByKey: (name: string, description: string, token: string, url: string) => Promise<ProviderDocumentInterface>;
 }
 
 export interface ProviderModelInterface extends Model<ProviderDocumentInterface> {

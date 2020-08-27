@@ -1,5 +1,5 @@
 import { GhtkService } from '../ghtk/ghtk.service';
-import {Body, Controller, Get, Param, Post, Query} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Put, Query} from '@nestjs/common';
 import {ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiTags} from '@nestjs/swagger';
 import { API_ROUTE } from '../enums/api.enums';
 import { GhtkFeeRequestDto } from '../ghtk/ghtk.dto';
@@ -31,7 +31,20 @@ export class ProviderController {
     @ApiParam({ name: 'key', required: true })
     @ApiOperation({ summary: 'Get fee' })
     // @UseInterceptors(ResponseInterceptor)
-    async getFee(@Param('key') key: string) {
+    async get(@Param('key') key: string) {
         return this.service.getByKey(key);
+    }
+
+    /**
+     * Update Provider by Key
+     */
+    @Put(API_ROUTE.PROVIDER_UPDATE)
+    @ApiParam({ name: 'key', required: true })
+    @ApiOperation({ summary: 'Get fee' })
+    // @UseInterceptors(ResponseInterceptor)
+    async update(@Param('key') key: string,
+                 @Body() body: ProviderCreateRequestDto) {
+        const { name, description, token, url } = body;
+        return this.service.updateByKey(name, key, description, token, url);
     }
 }

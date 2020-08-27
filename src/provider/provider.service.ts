@@ -19,10 +19,19 @@ export class ProviderService {
     }
 
     async getByKey(key: string): Promise<ProviderDocumentInterface> {
-        const res = this.repo.getByKey(key);
-        console.log('res', JSON.stringify(res));
+        const res = await this.repo.getByKey(key);
         if(res) return  res;
         throw new HttpException('Provider is not found', HttpStatus.NOT_FOUND);
+    }
+
+    async updateByKey(
+        name: string,
+        key: string,
+        description: string,
+        token: string,
+        url: string,
+    ): Promise<ProviderDocumentInterface> {
+        return this.repo.updateByKey(name, key, description, token, url);
     }
 
 
