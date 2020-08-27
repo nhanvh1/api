@@ -12,16 +12,6 @@ import { ConfigModule } from '../config/config.module';
             timeout: 1000,
             maxRedirects: 5,
         }),
-        // MongooseModule.forRootAsync({
-        //     imports: [ConfigModule],
-        //     useFactory: (configs: ConfigService): MongooseModuleOptions => ({
-        //         uri: configs.get('stores.mongo'),
-        //         useUnifiedTopology: true,
-        //         useNewUrlParser: true,
-        //         useCreateIndex: true,
-        //     }),
-        //     inject: [ConfigService],
-        // }),
     ],
     providers: [GhtkService],
     controllers: [GhtkController],

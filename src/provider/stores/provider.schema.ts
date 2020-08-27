@@ -14,7 +14,9 @@ const ProviderSchema = new mongoose.Schema({
         trim: true,
     },
     token: String,
-    url: String
+    url: String,
+    createdAt: { type: Number, default: Date.now },
+    updatedAt: { type: Number, default: Date.now },
 });
 
 ProviderSchema.statics = statics;

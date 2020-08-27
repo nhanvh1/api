@@ -1,13 +1,12 @@
+import {ProviderDocumentInterface, ProviderModelInterface} from "./provider.model";
+
 /**
- * Get list collections by Owner
+ * Get Provider by Ky
  *
- * @return StickerCollectionDocumentInterface[]
- * @param owner
  */
 export async function getByKey(
-    this: StickerCollectionModelInterface,
-    owner: string,
-): Promise<StickerCollectionDocumentInterface[]> {
-    const type: StickerTypeEnums = StickerTypeEnums.CUSTOM;
-    return this.find({ owner, type });
+    this: ProviderModelInterface,
+    key: string,
+): Promise<ProviderDocumentInterface> {
+    return this.findOne({ key});
 }
