@@ -20,8 +20,8 @@ module.exports = {
     rules: {
         'sort-imports': 0,
         'import-order': 0,
+        '@typescript-eslint/no-unused-vars': 2,
         'simple-import-sort/sort': 'error',
         'prettier/prettier': 2,
-        '@typescript-eslint/no-var-requires': 0,
     },
 };

@@ -1,10 +1,11 @@
 import { HttpModule, Module } from '@nestjs/common';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { ConfigService } from '../config/config.service';
+
 import { ConfigModule } from '../config/config.module';
-import {ProviderService} from "./provider.service";
-import {ProviderController} from "./provider.controller";
-import {MongoStoreModule} from "../mongo-store.module";
+import { ConfigService } from '../config/config.service';
+import { MongoStoreModule } from '../mongo-store.module';
+import { ProviderController } from './provider.controller';
+import { ProviderService } from './provider.service';
 
 @Module({
     imports: [

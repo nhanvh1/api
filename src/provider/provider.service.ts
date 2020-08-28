@@ -1,6 +1,7 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
-import {ProviderRepository} from "./stores/provider.repository";
-import {ProviderDocumentInterface} from "./stores/provider.model";
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+
+import { ProviderDocumentInterface } from './stores/provider.model';
+import { ProviderRepository } from './stores/provider.repository';
 
 @Injectable()
 export class ProviderService {
@@ -13,14 +14,14 @@ export class ProviderService {
         storeId: string,
         token: string,
         url: string,
-        redirect: string
+        redirect: string,
     ): Promise<ProviderDocumentInterface> {
         return this.repo.createProvider(name, key, description, storeId, token, url, redirect);
     }
 
     async getByKey(key: string): Promise<ProviderDocumentInterface> {
         const res = await this.repo.getByKey(key);
-        if(res) return  res;
+        if (res) return res;
         throw new HttpException('Provider is not found', HttpStatus.NOT_FOUND);
     }
 
@@ -35,7 +36,7 @@ export class ProviderService {
         storeId: string,
         token: string,
         url: string,
-        redirect: string
+        redirect: string,
     ): Promise<ProviderDocumentInterface> {
         return this.repo.updateByKey(name, key, description, storeId, token, url, redirect);
     }
@@ -43,6 +44,4 @@ export class ProviderService {
     async deleteProvider(key: string): Promise<ProviderDocumentInterface> {
         return this.repo.deleteProvider(key);
     }
-
-
 }

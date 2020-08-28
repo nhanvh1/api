@@ -1,19 +1,21 @@
 import { HttpModule, Module } from '@nestjs/common';
-import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { GhtkService } from './ghtk.service';
-import { GhtkController } from './ghtk.controller';
-import { ConfigService } from '../config/config.service';
+
 import { ConfigModule } from '../config/config.module';
+import { MongoStoreModule } from '../mongo-store.module';
+import { ProviderService } from '../provider/provider.service';
+import { GhtkController } from './ghtk.controller';
+import { GhtkService } from './ghtk.service';
 
 @Module({
     imports: [
+        MongoStoreModule,
         ConfigModule,
         HttpModule.register({
             timeout: 1000,
             maxRedirects: 5,
         }),
     ],
-    providers: [GhtkService],
+    providers: [GhtkService, ProviderService],
     controllers: [GhtkController],
     exports: [GhtkService],
 })

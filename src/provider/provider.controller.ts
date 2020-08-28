@@ -1,8 +1,9 @@
-import {Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import {ApiBearerAuth, ApiOperation, ApiParam,  ApiTags} from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+
 import { API_ROUTE } from '../enums/api.enums';
-import {ProviderService} from "./provider.service";
-import {ProviderCreateRequestDto} from "./provider.dto";
+import { ProviderCreateRequestDto } from './provider.dto';
+import { ProviderService } from './provider.service';
 
 @ApiBearerAuth()
 @ApiTags('Provider')
@@ -18,7 +19,7 @@ export class ProviderController {
     @ApiOperation({ summary: 'Create new Provider' })
     async create(@Body() body: ProviderCreateRequestDto) {
         const { name, key, description, storeId, token, url, redirect } = body;
-        return this.service.create(name, key, description, storeId, token, url, redirect)
+        return this.service.create(name, key, description, storeId, token, url, redirect);
     }
 
     /**
@@ -46,8 +47,7 @@ export class ProviderController {
     @Put(API_ROUTE.PROVIDER_UPDATE)
     @ApiParam({ name: 'key', required: true })
     @ApiOperation({ summary: 'Update Provider by Key' })
-    async update(@Param('key') key: string,
-                 @Body() body: ProviderCreateRequestDto) {
+    async update(@Param('key') key: string, @Body() body: ProviderCreateRequestDto) {
         const { name, description, storeId, token, url, redirect } = body;
         return this.service.updateByKey(name, key, description, storeId, token, url, redirect);
     }
@@ -61,5 +61,4 @@ export class ProviderController {
     async deleteProvider(@Param('key') key: string) {
         return this.service.deleteProvider(key);
     }
-
 }

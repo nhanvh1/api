@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import {ProviderSchema} from "./provider/stores/provider.schema";
-import {ProviderRepository} from "./provider/stores/provider.repository";
+
+import { ProviderRepository } from './provider/stores/provider.repository';
+import { ProviderSchema } from './provider/stores/provider.schema';
 
 @Module({
     imports: [

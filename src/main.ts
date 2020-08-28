@@ -1,9 +1,10 @@
-import { NestFactory} from '@nestjs/core';
-import { AppModule } from './app.module';
-import {Logger, LogLevel, ValidationPipe} from '@nestjs/common';
-import { ConfigService } from './config/config.service';
+import { Logger, LogLevel } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import {AllExceptionFilter} from "./common/all-exceptions.filter";
+
+import { AppModule } from './app.module';
+import { AllExceptionFilter } from './common/all-exceptions.filter';
+import { ConfigService } from './config/config.service';
 
 const logger = new Logger('Bootstrap');
 const configs = new ConfigService();
@@ -11,7 +12,6 @@ const configs = new ConfigService();
 const NAME = configs.get('service.name');
 const LOG_LEVEL = configs.get('log.level', ['log', 'error', 'warn', 'debug', 'verbose'] as LogLevel[]);
 const PORT = configs.get('service.port');
-const PACKAGE = configs.package('name');
 const GLOBAL_PREFIX = configs.get('service.globalPrefix');
 
 async function bootstrap() {
@@ -29,10 +29,8 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup(`${GLOBAL_PREFIX}/docs`, app, document);
 
-    app.useGlobalPipes(new ValidationPipe());
+    // app.useGlobalPipes(new ValidationPipe());
     app.useGlobalFilters(new AllExceptionFilter());
-
-
 
     await app.listen(PORT);
 }
