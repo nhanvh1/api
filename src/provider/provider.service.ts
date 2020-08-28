@@ -1,8 +1,6 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {ProviderRepository} from "./stores/provider.repository";
 import {ProviderDocumentInterface} from "./stores/provider.model";
-import {STATUS_CODES} from "http";
-
 
 @Injectable()
 export class ProviderService {
@@ -24,6 +22,10 @@ export class ProviderService {
         throw new HttpException('Provider is not found', HttpStatus.NOT_FOUND);
     }
 
+    async getAll(): Promise<ProviderDocumentInterface[]> {
+        return await this.repo.getAll();
+    }
+
     async updateByKey(
         name: string,
         key: string,
@@ -32,6 +34,10 @@ export class ProviderService {
         url: string,
     ): Promise<ProviderDocumentInterface> {
         return this.repo.updateByKey(name, key, description, token, url);
+    }
+
+    async deleteProvider(key: string): Promise<ProviderDocumentInterface> {
+        return this.repo.deleteProvider(key);
     }
 
 

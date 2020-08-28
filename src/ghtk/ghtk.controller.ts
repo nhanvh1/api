@@ -1,8 +1,8 @@
-import { GhtkService } from '../ghtk/ghtk.service';
+import { GhtkService } from './ghtk.service';
 import {Controller, Get, Param, Query} from '@nestjs/common';
 import {ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiTags} from '@nestjs/swagger';
 import { API_ROUTE } from '../enums/api.enums';
-import { GhtkFeeRequestDto } from '../ghtk/ghtk.dto';
+import { GhtkFeeRequestDto } from './ghtk.dto';
 
 @ApiBearerAuth()
 @ApiTags('GHTK')

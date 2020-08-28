@@ -1,12 +1,18 @@
 import {ProviderDocumentInterface, ProviderModelInterface} from "./provider.model";
 
 /**
- * Get Provider by Ky
+ * Get Provider by Key
  *
  */
-export async function getByKey(
-    this: ProviderModelInterface,
-    key: string,
-): Promise<ProviderDocumentInterface> {
+export async function getByKey(    this: ProviderModelInterface, key: string): Promise<ProviderDocumentInterface> {
     return this.findOne({ key});
+}
+
+/**
+ * Get list Provider
+ *
+ */
+export async function getAll(this: ProviderModelInterface): Promise<ProviderDocumentInterface[]> {
+    console.log('getAll');
+    return this.find({ deletedAt: null});
 }

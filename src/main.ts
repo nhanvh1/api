@@ -1,4 +1,4 @@
-import {HttpAdapterHost, NestFactory} from '@nestjs/core';
+import { NestFactory} from '@nestjs/core';
 import { AppModule } from './app.module';
 import {Logger, LogLevel, ValidationPipe} from '@nestjs/common';
 import { ConfigService } from './config/config.service';

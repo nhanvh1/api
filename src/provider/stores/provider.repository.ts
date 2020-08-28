@@ -13,13 +13,18 @@ export class ProviderRepository {
         token: string,
         url: string,
     ): Promise<ProviderDocumentInterface> {
-        const doc = new this.model({name, key, description, token, url});
+        let doc = await this.model.getByKey(key);
+        if(doc) throw new HttpException('Provider key is existing', HttpStatus.BAD_REQUEST);
+        doc = new this.model({name, key, description, token, url});
         return doc.save();
+    }
+
+    async getAll(): Promise<ProviderDocumentInterface[]> {
+        return this.model.getAll();
     }
 
     async getByKey(key: string): Promise<ProviderDocumentInterface> {
         return this.model.getByKey(key);
-
     }
 
     async updateByKey(
@@ -32,6 +37,14 @@ export class ProviderRepository {
         const doc = await this.model.getByKey(key);
         if(doc)
             return doc.updateByKey(name, description, token, url);
+        throw new HttpException('Provider is not found', HttpStatus.NOT_FOUND);
+
+    }
+
+    async deleteProvider(key: string): Promise<ProviderDocumentInterface> {
+        const doc = await this.model.getByKey(key);
+        if(doc)
+            return doc.deleteProvider();
         throw new HttpException('Provider is not found', HttpStatus.NOT_FOUND);
 
     }

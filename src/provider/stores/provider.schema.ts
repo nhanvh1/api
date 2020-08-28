@@ -17,6 +17,9 @@ const ProviderSchema = new mongoose.Schema({
     url: String,
     createdAt: { type: Number, default: Date.now },
     updatedAt: { type: Number, default: Date.now },
+    deletedAt: Number,
+}, {
+    validateBeforeSave: false,
 });
 
 ProviderSchema.statics = statics;
