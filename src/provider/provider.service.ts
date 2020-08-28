@@ -10,10 +10,12 @@ export class ProviderService {
         name: string,
         key: string,
         description: string,
+        storeId: string,
         token: string,
         url: string,
+        redirect: string
     ): Promise<ProviderDocumentInterface> {
-        return this.repo.createProvider(name, key, description, token, url);
+        return this.repo.createProvider(name, key, description, storeId, token, url, redirect);
     }
 
     async getByKey(key: string): Promise<ProviderDocumentInterface> {
@@ -30,10 +32,12 @@ export class ProviderService {
         name: string,
         key: string,
         description: string,
+        storeId: string,
         token: string,
         url: string,
+        redirect: string
     ): Promise<ProviderDocumentInterface> {
-        return this.repo.updateByKey(name, key, description, token, url);
+        return this.repo.updateByKey(name, key, description, storeId, token, url, redirect);
     }
 
     async deleteProvider(key: string): Promise<ProviderDocumentInterface> {

@@ -10,12 +10,14 @@ export class ProviderRepository {
         name: string,
         key: string,
         description: string,
+        storeId: string,
         token: string,
         url: string,
+        redirect: string,
     ): Promise<ProviderDocumentInterface> {
         let doc = await this.model.getByKey(key);
         if(doc) throw new HttpException('Provider key is existing', HttpStatus.BAD_REQUEST);
-        doc = new this.model({name, key, description, token, url});
+        doc = new this.model({name, key, description, storeId, token, url, redirect});
         return doc.save();
     }
 
@@ -31,12 +33,14 @@ export class ProviderRepository {
         name: string,
         key: string,
         description: string,
+        storeId: string,
         token: string,
         url: string,
+        redirect: string,
     ): Promise<ProviderDocumentInterface> {
         const doc = await this.model.getByKey(key);
         if(doc)
-            return doc.updateByKey(name, description, token, url);
+            return doc.updateByKey(name, description, storeId, token, url, redirect);
         throw new HttpException('Provider is not found', HttpStatus.NOT_FOUND);
 
     }

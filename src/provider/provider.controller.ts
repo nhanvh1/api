@@ -17,8 +17,8 @@ export class ProviderController {
     @Post(API_ROUTE.PROVIDER_CREATE)
     @ApiOperation({ summary: 'Create new Provider' })
     async create(@Body() body: ProviderCreateRequestDto) {
-        const { name, key, description, token, url } = body;
-        return this.service.create(name, key, description, token, url)
+        const { name, key, description, storeId, token, url, redirect } = body;
+        return this.service.create(name, key, description, storeId, token, url, redirect)
     }
 
     /**
@@ -48,8 +48,8 @@ export class ProviderController {
     @ApiOperation({ summary: 'Update Provider by Key' })
     async update(@Param('key') key: string,
                  @Body() body: ProviderCreateRequestDto) {
-        const { name, description, token, url } = body;
-        return this.service.updateByKey(name, key, description, token, url);
+        const { name, description, storeId, token, url, redirect } = body;
+        return this.service.updateByKey(name, key, description, storeId, token, url, redirect);
     }
 
     /**

@@ -6,14 +6,18 @@ import {ProviderDocumentInterface} from "./provider.model";
  * @return StickerCollectionDocumentInterface
  * @param name
  * @param description
+ * @param storeId
  * @param token
  * @param url
+ * @param redirect
  */
 export async function updateByKey(name: string,
                                   description: string,
+                                  storeId: string,
                                   token: string,
-                                  url: string): Promise<ProviderDocumentInterface> {
-    this.set({ name, description, token, url });
+                                  url: string,
+                                  redirect: string): Promise<ProviderDocumentInterface> {
+    this.set({ name, description, storeId, token, url, redirect});
     await this.save();
     return this;
 }

@@ -5,12 +5,19 @@ export interface ProviderModel {
     name: string,
     key: string,
     description: string,
+    storeId: string,
     token: string,
-    url: string
+    url: string,
+    redirect: string,
 }
 
 export interface ProviderDocumentInterface extends ProviderModel, Document {
-    updateByKey: (name: string, description: string, token: string, url: string) => Promise<ProviderDocumentInterface>;
+    updateByKey: (name: string,
+                  description: string,
+                  storeId: string,
+                  token: string,
+                  url: string,
+                  redirect: string) => Promise<ProviderDocumentInterface>;
     deleteProvider: () => Promise<ProviderDocumentInterface>;
 }
 
