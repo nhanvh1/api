@@ -1,5 +1,6 @@
 export enum API_ROUTE {
-    GHTK_FEE = 'ghtk/get',
+    GHTK_FEE = 'ghtk/fee',
+    GHTK_PICK_ADDRESS = 'ghtk/pick-address',
     GHTK_ORDER_CREATE = 'ghtk/create',
 
     PROVIDER_CREATE = 'provider/create',

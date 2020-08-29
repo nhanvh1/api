@@ -9,12 +9,23 @@ export class GhtkService {
     private headersRequest;
     private URL;
     private readonly KEY = configs.get('providers.ghtk.key');
-    private readonly FEE;
+    private readonly GET_FEE;
+    private readonly GET_PICK_ADD;
+    private readonly GET_ADDRESS_4;
     private readonly ORDER_CREATE;
+    private readonly ORDER_STATUS;
+    private readonly ORDER_CANCEL;
+    private readonly ORDER_LABEL;
 
     constructor(private readonly http: HttpService, private readonly provider: ProviderService) {
-        this.FEE = '/services/shipment/fee';
-        this.ORDER_CREATE = 'services/shipment/order/?ver=1.5';
+        this.GET_FEE = '/services/shipment/fee';
+        this.GET_PICK_ADD = '/services/shipment/list_pick_add';
+        this.GET_ADDRESS_4 = '/services/address/getAddressLevel4';
+
+        this.ORDER_CREATE = '/services/shipment/order/?ver=1.5';
+        this.ORDER_STATUS = '/services/shipment/v2/S1.A1.17373471';
+        this.ORDER_CANCEL = '/services/shipment/cancel/S1.17373471';
+        this.ORDER_LABEL = '/services/label/S1.8663516';
     }
 
     async onInit(): Promise<void> {
@@ -27,11 +38,20 @@ export class GhtkService {
     }
 
     async getMethod(endpoint: string) {
+        console.log(`endpoint ${endpoint}`);
         return this.http.get(encodeURI(endpoint), { headers: this.headersRequest }).toPromise();
     }
 
     async postMethod(endpoint: string, body: any) {
         return this.http.post(encodeURI(endpoint), body, { headers: this.headersRequest }).toPromise();
+    }
+
+    async getPickAddress() {
+        await this.onInit();
+        let endpoint = this.URL;
+        endpoint += this.GET_PICK_ADD;
+        const res = await this.getMethod(endpoint);
+        return res.data;
     }
 
     async calculateFee(
@@ -45,7 +65,7 @@ export class GhtkService {
     ) {
         await this.onInit();
         let endpoint = this.URL;
-        endpoint += this.FEE;
+        endpoint += this.GET_FEE;
         endpoint += `?address=${address}`;
         endpoint += `&province=${province}`;
         endpoint += `&district=${district}`;
@@ -111,4 +131,6 @@ export class GhtkService {
         const res = await this.postMethod(endpoint, body);
         return res.data;
     }
+
+
 }

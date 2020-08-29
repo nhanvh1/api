@@ -93,4 +93,15 @@ export class GhtkController {
         const { province, district, pick_province, pick_district, weight, value } = params;
         return this.service.calculateFee(address, province, district, pick_province, pick_district, weight, value);
     }
+
+    /**
+     * Get pick address
+     *
+     * @return ContactListResponseInterface
+     */
+    @Get(API_ROUTE.GHTK_PICK_ADDRESS)
+    @ApiOperation({ summary: 'Get pick address' })
+    async getPickAddress() {
+        return this.service.getPickAddress();
+    }
 }
