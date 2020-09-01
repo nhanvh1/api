@@ -27,14 +27,17 @@ export interface ProviderModelInterface extends Model<ProviderDocumentInterface>
 }
 
 /*
-* {
+*
+
+{
 "name": "Giao Hàng Tiết Kiệm",
 "key": "GHTK",
 "description": "API Giao Hàng Tiết Kiệm",
 "storeId": "",
 "token": "0be018749d42FA179887F30AA4eA05b22d3f3f9d",
 "url": "https://services.giaohangtietkiem.vn",
-"redirect": "",
+"redirect": ""
 }
+
 * */
 

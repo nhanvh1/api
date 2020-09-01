@@ -26,6 +26,7 @@ export class ProviderService {
     }
 
     async getAll(): Promise<ProviderDocumentInterface[]> {
+        console.log('repo.getAll');
         return await this.repo.getAll();
     }
 

@@ -1,4 +1,4 @@
-import { Logger, LogLevel } from '@nestjs/common';
+import {Logger, LogLevel, ValidationPipe} from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
@@ -17,20 +17,24 @@ const GLOBAL_PREFIX = configs.get('service.globalPrefix');
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
         logger: LOG_LEVEL,
-        cors: true,
     });
 
     // Swagger
     const options = new DocumentBuilder()
         .setTitle(NAME.toUpperCase())
-        .setDescription('The document about Viethome API')
+        .setDescription(`The document about ${NAME} API`)
         .addTag('GHTK')
         .build();
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup(`${GLOBAL_PREFIX}/docs`, app, document);
 
-    // app.useGlobalPipes(new ValidationPipe());
-    app.useGlobalFilters(new AllExceptionFilter());
+    app.useGlobalPipes(
+        new ValidationPipe({
+            transform: true,
+            forbidUnknownValues: true,
+        }),
+    );
+    // app.useGlobalFilters(new AllExceptionFilter());
 
     await app.listen(PORT);
 }

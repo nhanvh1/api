@@ -13,5 +13,6 @@ export async function getByKey(this: ProviderModelInterface, key: string): Promi
  *
  */
 export async function getAll(this: ProviderModelInterface): Promise<ProviderDocumentInterface[]> {
+    console.log('return this.find');
     return this.find({ deletedAt: null});
 }
