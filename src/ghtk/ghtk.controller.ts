@@ -91,6 +91,8 @@ export class GhtkController {
     @ApiOperation({ summary: 'Get fee' })
     async getFee(@Param('address') address: string, @Query() params: GhtkFeeRequestDto) {
         const { province, district, pick_province, pick_district, weight, value } = params;
+        console.log(`address ${address}`);
+        console.log(`params ${JSON.stringify(params)}`);
         return this.service.calculateFee(address, province, district, pick_province, pick_district, weight, value);
     }
 

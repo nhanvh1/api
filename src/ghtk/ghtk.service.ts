@@ -73,6 +73,7 @@ export class GhtkService {
         endpoint += `&pick_district=${pick_district}`;
         endpoint += `&weight=${weight}`;
         endpoint += `&value=${value}`;
+        console.log(`endpoint ${endpoint}`);
         const res = await this.getMethod(endpoint);
         return res.data;
     }

@@ -28,12 +28,8 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup(`${GLOBAL_PREFIX}/docs`, app, document);
 
-    app.useGlobalPipes(
-        new ValidationPipe({
-            transform: true,
-            forbidUnknownValues: true,
-        }),
-    );
+    app.enableCors();
+    app.useGlobalPipes(new ValidationPipe());
     // app.useGlobalFilters(new AllExceptionFilter());
 
     await app.listen(PORT);
