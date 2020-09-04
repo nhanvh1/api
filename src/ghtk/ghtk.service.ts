@@ -12,20 +12,20 @@ export class GhtkService {
     private readonly GET_FEE;
     private readonly GET_PICK_ADD;
     private readonly GET_ADDRESS_4;
-    private readonly ORDER_CREATE;
-    private readonly ORDER_STATUS;
-    private readonly ORDER_CANCEL;
-    private readonly ORDER_LABEL;
+    private readonly POST_ORDER_CREATE;
+    private readonly GET_ORDER_STATUS;
+    private readonly POST_ORDER_CANCEL;
+    private readonly GET_ORDER_LABEL;
 
     constructor(private readonly http: HttpService, private readonly provider: ProviderService) {
         this.GET_FEE = '/services/shipment/fee';
         this.GET_PICK_ADD = '/services/shipment/list_pick_add';
         this.GET_ADDRESS_4 = '/services/address/getAddressLevel4';
 
-        this.ORDER_CREATE = '/services/shipment/order/?ver=1.5';
-        this.ORDER_STATUS = '/services/shipment/v2/S1.A1.17373471';
-        this.ORDER_CANCEL = '/services/shipment/cancel/S1.17373471';
-        this.ORDER_LABEL = '/services/label/S1.8663516';
+        this.POST_ORDER_CREATE = '/services/shipment/order/?ver=1.5';
+        this.GET_ORDER_STATUS = '/services/shipment/v2/S1.A1.17373471';
+        this.POST_ORDER_CANCEL = '/services/shipment/cancel/S1.17373471';
+        this.GET_ORDER_LABEL = '/services/label/S1.8663516';
     }
 
     async onInit(): Promise<void> {
@@ -38,12 +38,26 @@ export class GhtkService {
     }
 
     async getMethod(endpoint: string) {
-        console.log(`endpoint ${endpoint}`);
         return this.http.get(encodeURI(endpoint), { headers: this.headersRequest }).toPromise();
     }
 
     async postMethod(endpoint: string, body: any) {
         return this.http.post(encodeURI(endpoint), body, { headers: this.headersRequest }).toPromise();
+    }
+
+    async getAddress4(address: string,
+                      province: string,
+                      district: string,
+                      ward_street: string) {
+        await this.onInit();
+        let endpoint = this.URL;
+        endpoint += this.GET_ADDRESS_4;
+        endpoint += `?address=${address}`;
+        endpoint += `?address=${province}`;
+        endpoint += `?address=${district}`;
+        endpoint += `?address=${ward_street}`;
+        const res = await this.getMethod(endpoint);
+        return res.data;
     }
 
     async getPickAddress() {
@@ -54,7 +68,7 @@ export class GhtkService {
         return res.data;
     }
 
-    async calculateFee(
+    async getFee(
         address: string,
         province: string,
         district: string,
@@ -73,7 +87,6 @@ export class GhtkService {
         endpoint += `&pick_district=${pick_district}`;
         endpoint += `&weight=${weight}`;
         endpoint += `&value=${value}`;
-        console.log(`endpoint ${endpoint}`);
         const res = await this.getMethod(endpoint);
         return res.data;
     }
@@ -102,7 +115,7 @@ export class GhtkService {
     ) {
         await this.onInit();
         let endpoint = this.URL;
-        endpoint += this.ORDER_CREATE;
+        endpoint += this.POST_ORDER_CREATE;
         const order = {
             id: orderId,
             pick_name,

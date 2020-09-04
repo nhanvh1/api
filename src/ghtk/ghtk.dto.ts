@@ -1,7 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
 export class GhtkFeeRequestDto {
-
     pick_province: string;
     pick_district: string;
     weight: number;
@@ -10,6 +9,12 @@ export class GhtkFeeRequestDto {
     @IsNotEmpty()
     province: string;
     district: string;
+}
+
+export class GhtkAddress4RequestDto {
+    province: string;
+    district: string;
+    ward_street: string;
 }
 
 export class GhTkOrderCreateDto {

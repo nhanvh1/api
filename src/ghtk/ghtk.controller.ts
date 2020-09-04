@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 import { API_ROUTE } from '../enums/api.enums';
-import { GhtkFeeRequestDto, GhTkOrderCreateDto } from './ghtk.dto';
+import {GhtkAddress4RequestDto, GhtkFeeRequestDto, GhTkOrderCreateDto} from './ghtk.dto';
 import { GhtkService } from './ghtk.service';
 
 @ApiBearerAuth()
@@ -81,7 +81,6 @@ export class GhtkController {
      * @return ContactListResponseInterface
      */
     @Get(API_ROUTE.GHTK_FEE)
-    @ApiParam({ name: 'address', required: true })
     @ApiQuery({ name: 'province', required: true })
     @ApiQuery({ name: 'district', required: true })
     @ApiQuery({ name: 'pick_province', required: true })
@@ -91,9 +90,22 @@ export class GhtkController {
     @ApiOperation({ summary: 'Get fee' })
     async getFee(@Param('address') address: string, @Query() params: GhtkFeeRequestDto) {
         const { province, district, pick_province, pick_district, weight, value } = params;
-        console.log(`address ${address}`);
-        console.log(`params ${JSON.stringify(params)}`);
-        return this.service.calculateFee(address, province, district, pick_province, pick_district, weight, value);
+        return this.service.getFee(address, province, district, pick_province, pick_district, weight, value);
+    }
+
+    /**
+     * Get address level 4
+     *
+     * @return ContactListResponseInterface
+     */
+    @Get(API_ROUTE.GHTK_ADDRESS4)
+    @ApiQuery({ name: 'province', required: true })
+    @ApiQuery({ name: 'district', required: true })
+    @ApiQuery({ name: 'ward_street', required: true })
+    @ApiOperation({ summary: 'Get address level 4' })
+    async getAddress4(@Param('address') address: string, @Query() params: GhtkAddress4RequestDto) {
+        const { province, district, ward_street } = params;
+        return this.service.getAddress4(address, province, district, ward_street);
     }
 
     /**
