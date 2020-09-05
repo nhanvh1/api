@@ -21,11 +21,11 @@ export class GhtkService {
         this.GET_FEE = '/services/shipment/fee';
         this.GET_PICK_ADD = '/services/shipment/list_pick_add';
         this.GET_ADDRESS_4 = '/services/address/getAddressLevel4';
+        this.GET_ORDER_LABEL = '/services/label/';
+        this.GET_ORDER_STATUS = '/services/shipment/v2/';
+        this.POST_ORDER_CANCEL = '/services/shipment/cancel/';
 
         this.POST_ORDER_CREATE = '/services/shipment/order/?ver=1.5';
-        this.GET_ORDER_STATUS = '/services/shipment/v2/S1.A1.17373471';
-        this.POST_ORDER_CANCEL = '/services/shipment/cancel/S1.17373471';
-        this.GET_ORDER_LABEL = '/services/label/S1.8663516';
     }
 
     async onInit(): Promise<void> {
@@ -38,10 +38,12 @@ export class GhtkService {
     }
 
     async getMethod(endpoint: string) {
+        console.log(`endpoint ${endpoint}`);
         return this.http.get(encodeURI(endpoint), { headers: this.headersRequest }).toPromise();
     }
 
     async postMethod(endpoint: string, body: any) {
+        console.log(`endpoint ${endpoint}`);
         return this.http.post(encodeURI(endpoint), body, { headers: this.headersRequest }).toPromise();
     }
 
@@ -53,9 +55,9 @@ export class GhtkService {
         let endpoint = this.URL;
         endpoint += this.GET_ADDRESS_4;
         endpoint += `?address=${address}`;
-        endpoint += `?address=${province}`;
-        endpoint += `?address=${district}`;
-        endpoint += `?address=${ward_street}`;
+        endpoint += `&province=${province}`;
+        endpoint += `&district=${district}`;
+        endpoint += `&ward_street=${ward_street}`;
         const res = await this.getMethod(endpoint);
         return res.data;
     }
@@ -87,6 +89,36 @@ export class GhtkService {
         endpoint += `&pick_district=${pick_district}`;
         endpoint += `&weight=${weight}`;
         endpoint += `&value=${value}`;
+        const res = await this.getMethod(endpoint);
+        return res.data;
+    }
+
+    /**
+     * In nhãn đơn hàng
+     * Nhãn đơn hàng bao gồm các thông tin của đơn hàng cần dán lên kiện hàng, gồm các thông tin mô tả đơn hàng, mã vạch của đơn hàng.
+     *
+     * @return ContactListResponseInterface
+     */
+    async getLabel(orderId: string) {
+        await this.onInit();
+        let endpoint = this.URL;
+        endpoint += this.GET_ORDER_LABEL;
+        endpoint += orderId;
+        const res = await this.getMethod(endpoint);
+        return res.data;
+    }
+
+    /**
+     * Trạng thái đơn hàng
+     * Sau khi danh sách các đơn hàng được gửi tới hệ thống của Giaohangtietkiem. Khách hàng có thể kiểm tra trạng thái các đơn hàng dựa vào mã đơn hàng
+     *
+     * @return ContactListResponseInterface
+     */
+    async getStatus(orderId: string) {
+        await this.onInit();
+        let endpoint = this.URL;
+        endpoint += this.GET_ORDER_STATUS;
+        endpoint += orderId;
         const res = await this.getMethod(endpoint);
         return res.data;
     }
@@ -141,10 +173,17 @@ export class GhtkService {
             products,
             order,
         };
-        console.log('body ', JSON.stringify(body));
         const res = await this.postMethod(endpoint, body);
         return res.data;
     }
 
+    async cancelOrder(orderId: string) {
+        await this.onInit();
+        let endpoint = this.URL;
+        endpoint += this.POST_ORDER_CANCEL;
+        endpoint += orderId;
+        const res = await this.postMethod(endpoint, {});
+        return res.data;
+    }
 
 }

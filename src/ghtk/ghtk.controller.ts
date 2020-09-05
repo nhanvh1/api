@@ -78,7 +78,6 @@ export class GhtkController {
     /**
      * Get Fee
      *
-     * @return ContactListResponseInterface
      */
     @Get(API_ROUTE.GHTK_FEE)
     @ApiQuery({ name: 'province', required: true })
@@ -96,7 +95,6 @@ export class GhtkController {
     /**
      * Get address level 4
      *
-     * @return ContactListResponseInterface
      */
     @Get(API_ROUTE.GHTK_ADDRESS4)
     @ApiQuery({ name: 'province', required: true })
@@ -105,17 +103,48 @@ export class GhtkController {
     @ApiOperation({ summary: 'Get address level 4' })
     async getAddress4(@Param('address') address: string, @Query() params: GhtkAddress4RequestDto) {
         const { province, district, ward_street } = params;
+        console.log(`address ${address}`);
         return this.service.getAddress4(address, province, district, ward_street);
     }
 
     /**
      * Get pick address
      *
-     * @return ContactListResponseInterface
      */
     @Get(API_ROUTE.GHTK_PICK_ADDRESS)
     @ApiOperation({ summary: 'Get pick address' })
     async getPickAddress() {
         return this.service.getPickAddress();
     }
+
+    /**
+     * Print order label
+     *
+     */
+    @Get(API_ROUTE.GHTK_ORDER_LABEL)
+    @ApiOperation({ summary: 'Print order label' })
+    async getLabel(@Param('orderId') orderId: string) {
+        return this.service.getLabel(orderId);
+    }
+
+    /**
+     * Get the status of order
+     *
+     */
+    @Get(API_ROUTE.GHTK_ORDER_STATUS)
+    @ApiOperation({ summary: 'Get the status of order' })
+    async getStatus(@Param('orderId') orderId: string) {
+        return this.service.getStatus(orderId);
+    }
+
+    /**
+     * Cancel Order
+     *
+     */
+    @Post(API_ROUTE.GHTK_ORDER_CANCEL)
+    @ApiOperation({ summary: 'Cancel Order' })
+    async cancelOrder(@Param('orderId') orderId: string) {
+        return this.service.cancelOrder(orderId);
+    }
+
 }
