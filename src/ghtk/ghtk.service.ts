@@ -39,12 +39,12 @@ export class GhtkService {
 
     async getMethod(endpoint: string) {
         console.log(`endpoint ${endpoint}`);
-        return this.http.get(encodeURI(endpoint), { headers: this.headersRequest }).toPromise();
+        return this.http.get(encodeURI(endpoint), { headers: this.headersRequest, timeout: 5000 }).toPromise();
     }
 
     async postMethod(endpoint: string, body: any) {
-        console.log(`endpoint ${endpoint}`);
-        return this.http.post(encodeURI(endpoint), body, { headers: this.headersRequest }).toPromise();
+        // console.log(`endpoint ${endpoint}`);
+        return this.http.post(encodeURI(endpoint), body, { headers: this.headersRequest, timeout: 5000 }).toPromise();
     }
 
     async getAddress4(address: string,

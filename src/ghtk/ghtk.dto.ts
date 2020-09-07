@@ -38,3 +38,25 @@ export class GhTkOrderCreateDto {
     note: string;
     value: number;
 }
+
+/*
+{
+    "orderId": "123456",
+    "pick_name": "nhan",
+    "pick_address": "hoa binh",
+    "pick_province": "can tho",
+    "pick_district": "ninh kieu",
+    "pick_ward": "tan an",
+    "pick_tel": "090897897",
+    "tel": "090897897",
+    "name": "Thi",
+    "address": "nguyen trai",
+    "province": "can tho",
+    "district": "ninh kieu",
+    "ward": "cai khe",
+    "hamlet": "khác",
+    "pick_money": 10000
+}
+
+
+ */
