@@ -2,11 +2,11 @@ import { HttpModule, Module } from '@nestjs/common';
 
 import { GhtkModule } from './ghtk/ghtk.module';
 import { ProviderModule } from './provider/provider.module';
-import {APP_GUARD} from "@nestjs/core";
+import {ZaloModule} from "./zalo/zalo.module";
 // import {RolesGuard} from "./common/guards";
 
 @Module({
-    imports: [GhtkModule, ProviderModule, HttpModule],
+    imports: [GhtkModule, ProviderModule, HttpModule, ZaloModule],
     controllers: [],
     // providers: [
     //     {

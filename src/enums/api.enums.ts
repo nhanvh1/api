@@ -12,4 +12,7 @@ export enum API_ROUTE {
     PROVIDER_GET_ALL = 'provider/all',
     PROVIDER_UPDATE = 'provider/:key',
     PROVIDER_DELETE = 'provider/:key',
+
+    ZALO_CATEGORIES = 'zalo/categories/',
+    ZALO_PROFILE = 'zalo/profile/',
 }
